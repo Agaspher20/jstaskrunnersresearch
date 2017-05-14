@@ -6,20 +6,26 @@ var amdOptimize = require("gulp-amd-optimizer");
 var config = {
     //Include all js files but exclude any min.js files
     packages: [
-        "app_one",
-        "app_two"
+        {
+            name: "app_one"
+        },
+        {
+            name: "app_two",
+            dependencies: ["config.js"]
+        }
     ],
     dest: "dist/",
-    dev: true
+    dev: false
 }
 
 var requireConfig = {
     baseUrl: "app",
     paths: {
         lodash: "../bower_components/lodash/lodash",
+        jquery: "../bower_components/jquery/dist/jquery",
         commonModules: "commonModules"
     },
-    exclude: ["lodash"]
+    exclude: ["lodash", "jquery"]
 };
 var options = {
     umd: false
@@ -31,17 +37,25 @@ gulp.task("clean", function () {
 
 var tasks = []
 for(var i = 0; i < config.packages.length; ++i){
-    (function(taskName, packageName, index) {
+    (function(taskName, package, index) {
         tasks.push(taskName);
         gulp.task(taskName, ["clean"], function() {
-            var packagePipe = gulp
-                .src(["app/appEntry.js", "app/" + packageName + "/index.js"])
+            var packageFiles = ["app/appEntry.js", "app/" + package.name + "/index.js"],
+                packagePipe;
+            if(package.dependencies) {
+                for(var i = 0; i < package.dependencies.length; ++i) {
+                    packageFiles.push("app/" + package.name + "/" + package.dependencies[i]);
+                }
+            }
+            console.log(packageFiles);
+            packagePipe = gulp
+                .src(packageFiles)
                 .pipe(amdOptimize(requireConfig, options));
             if(!config.dev) {
                 packagePipe = packagePipe.pipe(concat("appEntry.js"))
             }
             return packagePipe
-                .pipe(gulp.dest(config.dest + packageName));
+                .pipe(gulp.dest(config.dest + package.name));
             });
     }("package" + i, config.packages[i], i));
 }
