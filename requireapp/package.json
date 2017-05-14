@@ -1,0 +1,16 @@
+{
+  "name": "requireapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "requireapp.js",
+  "dependencies": {
+    "bower": "^1.8.0",
+    "requirejs": "^2.3.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

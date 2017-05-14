@@ -1,0 +1,21 @@
+{
+  "name": "requireapp",
+  "authors": [
+    "Michael Naumenko <agaspher@outlook.com>"
+  ],
+  "description": "hello world requirejs application",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "requirejs": "^2.3.3",
+    "lodash": "^4.17.4"
+  }
+}
