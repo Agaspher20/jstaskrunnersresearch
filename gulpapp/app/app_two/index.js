@@ -1,4 +1,4 @@
-define("index", ["loggerModule"], function() {
+define(["commonModules/loggerModule"], function() {
     var element = document.createElement("div");
     element.innerHTML = "This is second module";
     document.body.appendChild(element);

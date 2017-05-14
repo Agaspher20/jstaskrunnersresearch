@@ -6,17 +6,18 @@ var amdOptimize = require("gulp-amd-optimizer");
 var config = {
     //Include all js files but exclude any min.js files
     packages: [
-        "index1",
-        "index2"
+        "app_one",
+        "app_two"
     ],
     dest: "dist/",
-    dev: false
+    dev: true
 }
 
 var requireConfig = {
     baseUrl: "app",
     paths: {
-        lodash: "../bower_components/lodash/lodash"
+        lodash: "../bower_components/lodash/lodash",
+        commonModules: "commonModules"
     },
     exclude: ["lodash"]
 };
@@ -29,7 +30,7 @@ gulp.task("clean", function () {
     //del is an async function and not a gulp plugin (just standard nodejs)
     //It returns a promise, so make sure you return that from this task function
     //  so gulp knows when the delete is complete
-    return del(["dist/**/*.js"]);
+    return del(["dist/**/*.js", "dist/**/"]);
 });
 
 var tasks = []
@@ -38,13 +39,13 @@ for(var i = 0; i < config.packages.length; ++i){
         tasks.push(taskName);
         gulp.task(taskName, ["clean"], function() {
             var packagePipe = gulp
-                .src(["app/appEntry.js", "app/" + packageName + ".js"])
+                .src(["app/" + packageName + "/appEntry.js", "app/" + packageName + "/index.js"])
                 .pipe(amdOptimize(requireConfig, options));
             if(!config.dev) {
-                packagePipe = packagePipe.pipe(concat("appEntry" + index + ".js"))
+                packagePipe = packagePipe.pipe(concat("appEntry.js"))
             }
             return packagePipe
-                .pipe(gulp.dest(config.dest));
+                .pipe(gulp.dest(config.dest + packageName));
             });
     }("package" + i, config.packages[i], i));
 }
