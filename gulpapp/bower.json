@@ -1,0 +1,22 @@
+{
+  "name": "gulpapp",
+  "authors": [
+    "Michael Naumenko <agaspher@outlook.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "requirejs": "^2.3.3"
+  }
+}
