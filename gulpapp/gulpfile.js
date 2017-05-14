@@ -39,7 +39,7 @@ for(var i = 0; i < config.packages.length; ++i){
         tasks.push(taskName);
         gulp.task(taskName, ["clean"], function() {
             var packagePipe = gulp
-                .src(["app/" + packageName + "/appEntry.js", "app/" + packageName + "/index.js"])
+                .src(["app/appEntry.js", "app/" + packageName + "/index.js"])
                 .pipe(amdOptimize(requireConfig, options));
             if(!config.dev) {
                 packagePipe = packagePipe.pipe(concat("appEntry.js"))
