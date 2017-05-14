@@ -25,12 +25,8 @@ var options = {
     umd: false
 };
 
-//delete the output file(s)
 gulp.task("clean", function () {
-    //del is an async function and not a gulp plugin (just standard nodejs)
-    //It returns a promise, so make sure you return that from this task function
-    //  so gulp knows when the delete is complete
-    return del(["dist/**/*.js", "dist/**/"]);
+    return del(["dist/**/"]);
 });
 
 var tasks = []
