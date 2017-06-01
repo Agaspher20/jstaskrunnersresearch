@@ -1,8 +1,5 @@
-var whiteSpace = require("whiteSpaceModule.js");
-var logger = require("loggerModule.js");
-var _ = require("lodash");
+define(["whiteSpaceModule.js"], function (whiteSpace) {
+    var res = whiteSpace.component(["Hello", "system", "js"]);
 
-var res = whiteSpace.component(["Hello", "system", "js"], _);
-
-document.body.appendChild(res);
-logger.log();
+    document.body.appendChild(res);
+});
